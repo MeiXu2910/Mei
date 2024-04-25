@@ -83,7 +83,7 @@ class GameEngine:
         else:
             print("You don't have", item, "in your inventory.")
 
-    def inventory(self):
+    def show_inventory(self):
         if self.player_inventory:
             print("Inventory:", ", ".join(self.player_inventory))
         else:

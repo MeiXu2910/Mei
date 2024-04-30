@@ -38,6 +38,8 @@ class GameEngine:
             print("Items:", " ".join(room["items"]), "\n")
 
     def go(self, direction):
+        
+
         room = self.rooms[self.current_room]
         exits = room["exits"]
         if direction in exits:
@@ -128,8 +130,12 @@ if __name__ == "__main__":
         elif command == "look":
             game.look()
         elif command.startswith("go"):
-            _, direction = command.split(" ", 1)
-            game.go(direction)
+            try:
+                _, direction = command.split(" ", 1)
+                game.go(direction)
+            except Exception:
+        
+                print("Sorry, you need to 'go' somewhere.")
         elif command.startswith("get"):
             _, item = command.split(" ", 1)
             game.get(item)

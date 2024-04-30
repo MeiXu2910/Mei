@@ -31,11 +31,11 @@ class GameEngine:
         self.print_items(room)
 
     def print_exits(self, room):
-        print("Exits:", ", ".join(room["exits"].keys()), "\n")
+        print("Exits:", " ".join(room["exits"].keys()), "\n")
 
     def print_items(self, room):
         if "items" in room:
-            print("Items:", ", ".join(room["items"]), "\n")
+            print("Items:", " ".join(room["items"]), "\n")
 
     def go(self, direction):
         room = self.rooms[self.current_room]
@@ -138,7 +138,7 @@ if __name__ == "__main__":
             _, item = command.split(" ", 1)
             game.use(item)
         elif command.startswith("inventory"):
-            
+
             game.inventory()
         elif command.startswith("help"):
             game.help()

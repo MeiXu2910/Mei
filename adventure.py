@@ -45,10 +45,12 @@ class GameEngine:
             if self.is_door_locked(room, direction):
                 print("The door is locked.")
             else:
+                print(f'You go {direction}.\n')
                 self.current_room = next_room_name
                 self.look()
         else:
-            closest_match = difflib.get_close_matches(direction, exits.keys(), n=1)
+            closest_match =  [dre for dre in room['exits'] if direction in dre]
+            # print(closest_match)
             if closest_match:
                 print(f"Did you mean to go {closest_match[0]}?")
             else:

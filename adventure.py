@@ -141,6 +141,6 @@ if __name__ == "__main__":
             game.use(item)
         elif command.startswith("inventory"):
 
-            game.inventory()
+            game.show_inventory()
         elif command.startswith("help"):
             game.help()

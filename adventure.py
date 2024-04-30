@@ -27,8 +27,9 @@ class GameEngine:
     def look(self):
         room = self.rooms[self.current_room]
         print(f"> {room['name']}\n\n{room['desc']}\n")
-        self.print_exits(room)
+        
         self.print_items(room)
+        self.print_exits(room)
 
     def print_exits(self, room):
         print("Exits:", " ".join(room["exits"].keys()), "\n")

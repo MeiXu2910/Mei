@@ -15,9 +15,10 @@ class Player:
 
     def describe_room(self):
         print(f'> {self.current_room.name}\n\n{self.current_room.desc}\n')
-        print(f'Exits: {" ".join(self.current_room.exits.keys())}\n')
         if self.current_room.items:
             print(f'Items: {", ".join(self.current_room.items)}\n')
+        print(f'Exits: {" ".join(self.current_room.exits.keys())}\n')
+        
 
     def go(self, direction):
         if direction in ["n", "s", "e", "w", "u", "d"]:
@@ -25,8 +26,8 @@ class Player:
         
         if direction in self.current_room.exits:
             self.current_room = self.current_room.exits[direction]
-            print(f"You go {direction}.")
-            print()
+            print(f"You go {direction}.\n")
+            #print()
             return True
         else:
             print(f"There's no way to go {direction}.")
@@ -39,25 +40,25 @@ class Player:
         if item in self.current_room.items:
             self.current_room.items.remove(item)
             self.inventory.append(item)
-            print(f"You pick up the {item}.\n")
+            print(f"You pick up the {item}.")
         else:
-            print(f"There's no {item} here.\n")
+            print(f"There's no {item} anywhere.")
 
-def show_inventory(self):
-    if not self.inventory:
-        print("You're not carrying anything.")
-    else:
-        print("Inventory:")
-        for item in self.inventory:
-            print(f" {item}")
+    def show_inventory(self):
+        if not self.inventory:
+            print("You're not carrying anything.")
+        else:
+            print("Inventory:")
+            for item in self.inventory:
+                print(f"  {item}")
 
     def drop(self, item):
         if item in self.inventory:
             self.inventory.remove(item)
             self.current_room.items.append(item)
-            print(f"You drop the {item}.\n")
+            print(f"You drop the {item}.")
         else:
-            print(f"You don't have {item} in your inventory.\n")
+            print(f"You don't have {item} in your inventory.")
 
     def help(self):
         print("Commands: go, look, get, inventory, drop, quit, help")
@@ -91,7 +92,7 @@ def main():
             verb = action[0]
             if verb == "go":
                 if len(action) < 2:
-                    print("Sorrry, you need to 'go' somewhere.")
+                    print("Sorry, you need to 'go' somewhere.")
                     continue
                 direction = action[1]
                 if direction in player.current_room.exits:

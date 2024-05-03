@@ -24,14 +24,6 @@ class Player:
             direction = {"n": "north", "s": "south", "e": "east", "w": "west", "u": "up", "d": "down"}[direction]
         
         if direction in self.current_room.exits:
-            if direction in self.current_room.locked_exits:
-                required_item = self.current_room.locked_exits[direction]
-                if required_item in self.inventory:
-                    print(f"You unlock the {direction} exit with {required_item}.")
-                    self.current_room.unlock_exit(direction, required_item)
-                else:
-                    print(f"The {direction} exit is locked. You need {required_item} to unlock it.")
-                    return False
             self.current_room = self.current_room.exits[direction]
             print(f"You go {direction}.")
             print()
@@ -99,16 +91,25 @@ def main():
             verb = action[0]
             if verb == "go":
                 if len(action) < 2:
-                    print("Specify a direction to go.")
+                    print("Sorrry, you need to 'go' somewhere.")
                     continue
                 direction = action[1]
-                if player.go(direction):
-                    player.look()
+                if direction in player.current_room.exits:
+                    if player.go(direction):
+                        player.look()
+                    else:
+                        close_matches = [di for di in player.current_room.exits if direction in di]
+                        if close_matches:
+                            print(f"Did you want to go {close_matches[0]} or {close_matches[1]}?")
+                        else:
+                            print(f"There's no way to go {direction}.")
+                else:
+                    print(f"There's no way to go {direction}.")
             elif verb == "look":
                 player.look()
             elif verb == "get":
                 if len(action) < 2:
-                    print("Specify an item to get.")
+                    print("Sorry, you need to 'get' something.")
                     continue
                 item = action[1]
                 player.get(item)
@@ -121,14 +122,15 @@ def main():
                 player.help()
             elif verb == "drop":
                 if len(action) < 2:
-                    print("Specify an item to drop.")
+                    print("Sorry, you need to 'drop' something.")
                     continue
                 item = action[1]
                 player.drop(item)
             else:
-                print("Unknown command. Type 'help' for instructions.")
+                print("I don't understand that command.")
         except EOFError:
-            print("Type 'quit' to exit.")
+            print("Use 'quit' to exit.")
+
 
 if __name__ == "__main__":
     main()
